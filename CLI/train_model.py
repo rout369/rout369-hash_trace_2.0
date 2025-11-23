@@ -2,7 +2,6 @@
 """
 HashTrace ADVANCED Model Trainer - AUTO MODEL SELECTION
 Trains multiple models, selects best performer automatically
-Compatible with both CLI and GUI
 """
 
 import pandas as pd
@@ -25,7 +24,7 @@ from sklearn.preprocessing import StandardScaler
 from hash_features import advanced_hash_features, get_feature_names  # CHANGED
 
 
-# warnings.filterwarnings('ignore', category=RuntimeWarning, module='numpy')
+warnings.filterwarnings('ignore', category=RuntimeWarning, module='numpy')
 
 
 
@@ -81,35 +80,7 @@ class AdvancedHashMLTrainer:
         print(f"   - Distribution: {type_counts.iloc[0]} (max) - {type_counts.iloc[-1]} (min)")
         
         return df
-    
-    # def extract_features(self, df):
-    #     """Extract features from all hashes"""
-    #     print("🔧 Extracting features...")
-        
-    #     features_list = []
-    #     valid_indices = []
-        
-    #     for idx, hash_str in enumerate(df['hash']):
-    #         try:
-    #             features_dict = extract_hash_features(str(hash_str))
-    #             features_vector = [features_dict.get(key, 0) for key in self.feature_names]
-    #             features_list.append(features_vector)
-    #             valid_indices.append(idx)
-    #         except Exception as e:
-    #             if len(valid_indices) < 5:  # Show first few errors
-    #                 print(f"⚠️  Error processing hash {idx}: {e}")
-    #             continue
-        
-    #     X = np.array(features_list)
-    #     y = df.iloc[valid_indices]['hash_type'].values
-        
-    #     print(f"✅ Features extracted:")
-    #     print(f"   - Successful: {X.shape[0]:,}")
-    #     print(f"   - Failed: {len(df) - X.shape[0]}")
-    #     print(f"   - Features: {X.shape[1]}")
-    #     print(f"   - Classes: {len(np.unique(y))}")
-        
-    #     return X, y
+   
 
 
     def validate_and_clean_features(self, X):
@@ -130,74 +101,7 @@ class AdvancedHashMLTrainer:
         return X_clean
 
 
-    # def extract_features(self, df):
-    #     """Extract ADVANCED features from all hashes"""
-    #     print("🔧 Extracting ADVANCED cryptographic features...")
-        
-    #     features_list = []
-    #     valid_indices = []
-        
-    #     for idx, hash_str in enumerate(df['hash']):
-    #         try:
-    #             # USE ADVANCED FEATURE EXTRACTOR
-    #             features_dict = advanced_hash_features(str(hash_str))
-    #             features_vector = [features_dict.get(key, 0) for key in self.feature_names]
-    #             features_list.append(features_vector)
-    #             valid_indices.append(idx)
-    #         except Exception as e:
-    #             if len(valid_indices) < 5:
-    #                 print(f"⚠️  Error processing hash {idx}: {e}")
-    #             continue
-        
-    #     X = np.array(features_list)
-    #     y = df.iloc[valid_indices]['hash_type'].values
-        
-    #     # CONVERT BOOLEAN FEATURES TO NUMERIC
-    #     X = self.convert_features_to_numeric(X)
-        
-    #     print(f"✅ ADVANCED Cryptographic Features extracted:")
-    #     print(f"   - Successful: {X.shape[0]:,}")
-    #     print(f"   - Features: {X.shape[1]} (bit-level, statistical, encoding)")
-    #     print(f"   - Classes: {len(np.unique(y))}")
-        
-    #     return X, y
-
-
-    # def extract_features(self, df):
-    #     """Extract ADVANCED features from all hashes"""
-    #     print("🔧 Extracting ADVANCED cryptographic features...")
-        
-    #     features_list = []
-    #     valid_indices = []
-        
-    #     for idx, hash_str in enumerate(df['hash']):
-    #         try:
-    #             # USE ADVANCED FEATURE EXTRACTOR
-    #             features_dict = advanced_hash_features(str(hash_str))
-    #             features_vector = [features_dict.get(key, 0) for key in self.feature_names]
-    #             features_list.append(features_vector)
-    #             valid_indices.append(idx)
-    #         except Exception as e:
-    #             if len(valid_indices) < 5:
-    #                 print(f"⚠️  Error processing hash {idx}: {e}")
-    #             continue
-        
-    #     X = np.array(features_list)
-    #     y = df.iloc[valid_indices]['hash_type'].values
-        
-    #     # CONVERT BOOLEAN FEATURES TO NUMERIC
-    #     X = self.convert_features_to_numeric(X)
-        
-    #     # CLEAN AND VALIDATE FEATURES
-    #     X = self.validate_and_clean_features(X)
-        
-    #     print(f"✅ ADVANCED Cryptographic Features extracted:")
-    #     print(f"   - Successful: {X.shape[0]:,}")
-    #     print(f"   - Features: {X.shape[1]} (bit-level, statistical, encoding)")
-    #     print(f"   - Classes: {len(np.unique(y))}")
-        
-    #     return X, y
-
+    
     def extract_features(self, df):
         """Extract ADVANCED features from all hashes with visual progress bar"""
         print("🔧 Extracting ADVANCED cryptographic features...")
@@ -309,33 +213,6 @@ class AdvancedHashMLTrainer:
                 n_jobs=-1,
                 class_weight='balanced'
             ),
-            # 'GradientBoosting': GradientBoostingClassifier(
-            #     n_estimators=150,
-            #     max_depth=10,
-            #     learning_rate=0.1,
-            #     random_state=42
-            # ),
-            # 'SVM': SVC(
-            #     C=1.0,
-            #     kernel='rbf',
-            #     probability=True,
-            #     random_state=42,
-            #     class_weight='balanced'
-            # ),
-            'NeuralNetwork': MLPClassifier(
-                hidden_layer_sizes=(64, 32),  # Reduced size
-                activation='relu',
-                solver='adam',
-                alpha=0.1,  # Increased regularization
-                learning_rate='adaptive',
-                learning_rate_init=0.001,
-                max_iter=200,  # Reduced iterations
-                early_stopping=True,
-                validation_fraction=0.15,
-                n_iter_no_change=10,
-                random_state=42,
-                verbose=False  # Suppress training output
-            ),
             'LogisticRegression': LogisticRegression(
                 C=1.0,
                 solver='lbfgs',
@@ -437,41 +314,6 @@ class AdvancedHashMLTrainer:
                 continue
 
         return self.results
-
-
-                
-        #         # Calculate metrics
-        #         train_acc = accuracy_score(y_train, train_pred)
-        #         test_acc = accuracy_score(y_test, test_pred)
-        #         test_f1 = f1_score(y_test, test_pred, average='weighted')
-        #         training_time = time.time() - start_time
-                
-        #         # Cross-validation score
-        #         cv_scores = cross_val_score(model, X_tr, y_train, cv=3, scoring='accuracy')
-        #         cv_mean = np.mean(cv_scores)
-                
-        #         # Store results
-        #         self.results[name] = {
-        #             'model': model,
-        #             'train_accuracy': train_acc,
-        #             'test_accuracy': test_acc,
-        #             'f1_score': test_f1,
-        #             'cv_score': cv_mean,
-        #             'training_time': training_time,
-        #             'scaler': scaler if name in ['SVM', 'NeuralNetwork', 'LogisticRegression'] else None
-        #         }
-                
-        #         print(f"   ✅ {name}:")
-        #         print(f"      📈 Test Accuracy: {test_acc:.4f}")
-        #         print(f"      🎯 F1 Score: {test_f1:.4f}")
-        #         print(f"      🔍 CV Score: {cv_mean:.4f}")
-        #         print(f"      ⏱️  Time: {training_time:.2f}s")
-                
-        #     except Exception as e:
-        #         print(f"   ❌ {name} failed: {e}")
-        #         continue
-        
-        # return self.results
 
     def _estimate_model_size(self, model):
         """Estimate model size in memory (approximate)"""
@@ -639,4 +481,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
