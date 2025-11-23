@@ -83,6 +83,7 @@ Supports:
 ---
 
 ## 📘 Example Output
+![HashTrace Banner](screenshot/Screenshot_312.png)
 ```
 Enter Hash:
 $argon2id$v=19$m=65536,t=3,p=4$1YlQ...$G0PeE...
