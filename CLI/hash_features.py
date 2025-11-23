@@ -7,49 +7,6 @@ from collections import Counter
 from scipy import stats
 import binascii
 
-# def advanced_hash_features(hash_string):
-#     """
-#     Extract 80+ cryptographic features from hash string
-#     Enhanced with robust byte conversion, advanced statistical analysis, 
-#     and comprehensive algorithm detection
-#     """
-#     if not isinstance(hash_string, str):
-#         hash_string = str(hash_string)
-    
-#     features = {}
-#     length = len(hash_string)
-    
-#     # Convert to bytes with robust encoding detection
-#     hash_bytes, encoding_type = robust_string_to_bytes(hash_string)
-    
-#     # ===== LAYER 1: Basic Character & Structural Features =====
-#     features.update(basic_structural_features(hash_string, length))
-#     features['detected_encoding'] = encoding_type
-    
-#     # ===== LAYER 2: Byte-Level Statistical Analysis =====
-#     if len(hash_bytes) > 0:
-#         features.update(byte_statistical_features(hash_bytes))
-    
-#     # ===== LAYER 3: Bit-Level Distribution Analysis =====
-#     if len(hash_bytes) > 0:
-#         features.update(bit_distribution_features(hash_bytes))
-    
-#     # ===== LAYER 4: Cryptographic Property Tests =====
-#     if len(hash_bytes) > 0:
-#         features.update(cryptographic_property_features(hash_bytes, hash_string))
-    
-#     # ===== LAYER 5: Encoding & Format Detection =====
-#     features.update(encoding_format_features(hash_string, hash_bytes))
-    
-#     # ===== LAYER 6: Algorithm-Specific Patterns =====
-#     features.update(algorithm_specific_features(hash_string, hash_bytes, length))
-    
-#     # ===== LAYER 7: Advanced Cryptographic Analysis =====
-#     if len(hash_bytes) > 0:
-#         features.update(advanced_crypto_analysis(hash_bytes, hash_string))
-    
-#     return features
-
 def advanced_hash_features(hash_string):
     """
     Extract 100+ cryptographic features from hash string
@@ -404,83 +361,6 @@ def get_char_type(char):
     else:
         return 'symbol'
 
-# def byte_statistical_features(hash_bytes):
-#     """Enhanced statistical analysis of byte values"""
-#     features = {}
-    
-#     # FIX: Safe byte array conversion with proper error handling
-#     try:
-#         byte_array = np.frombuffer(hash_bytes, dtype=np.uint8)
-#     except (ValueError, TypeError):
-#         # Fallback: convert to list of byte values manually
-#         byte_array = np.array([b for b in hash_bytes], dtype=np.uint8)
-    
-#     if len(byte_array) == 0:
-#         # Return default values for empty arrays
-#         features.update({
-#             'byte_mean': 0.0, 'byte_std': 0.0, 'byte_variance': 0.0,
-#             'byte_skewness': 0.0, 'byte_kurtosis': 0.0, 'byte_min': 0.0,
-#             'byte_max': 0.0, 'byte_range': 0.0, 'byte_median': 0.0,
-#             'byte_q1': 0.0, 'byte_q3': 0.0, 'byte_iqr': 0.0,
-#             'byte_chi2_uniform': 0.0, 'byte_uniformity_pval': 0.0,
-#             'byte_uniqueness_ratio': 0.0
-#         })
-#         return features
-    
-#     # Basic statistical moments with safe calculations
-#     features['byte_mean'] = float(np.mean(byte_array))
-#     features['byte_std'] = float(np.std(byte_array))
-#     features['byte_variance'] = float(np.var(byte_array))
-    
-#     # Higher-order moments (if enough data)
-#     if len(byte_array) > 1:
-#         try:
-#             features['byte_skewness'] = float(stats.skew(byte_array))
-#             features['byte_kurtosis'] = float(stats.kurtosis(byte_array))
-#         except:
-#             features['byte_skewness'] = 0.0
-#             features['byte_kurtosis'] = 0.0
-#     else:
-#         features['byte_skewness'] = 0.0
-#         features['byte_kurtosis'] = 0.0
-    
-#     # Range and distribution
-#     features['byte_min'] = float(np.min(byte_array))
-#     features['byte_max'] = float(np.max(byte_array))
-#     features['byte_range'] = features['byte_max'] - features['byte_min']
-    
-#     # Percentile analysis with safe calculation
-#     try:
-#         features['byte_median'] = float(np.median(byte_array))
-#         features['byte_q1'] = float(np.percentile(byte_array, 25))
-#         features['byte_q3'] = float(np.percentile(byte_array, 75))
-#         features['byte_iqr'] = features['byte_q3'] - features['byte_q1']
-#     except:
-#         features['byte_median'] = features['byte_mean']
-#         features['byte_q1'] = features['byte_mean']
-#         features['byte_q3'] = features['byte_mean']
-#         features['byte_iqr'] = 0.0
-    
-#     # Uniformity test (chi-squared) with safe calculation
-#     try:
-#         hist, _ = np.histogram(byte_array, bins=16, range=(0, 256))
-#         expected = np.full(16, len(byte_array) / 16)
-#         chi2_stat = np.sum((hist - expected) ** 2 / expected)
-#         features['byte_chi2_uniform'] = float(chi2_stat)
-#         features['byte_uniformity_pval'] = float(1 - stats.chi2.cdf(chi2_stat, 15))
-#     except:
-#         features['byte_chi2_uniform'] = 0.0
-#         features['byte_uniformity_pval'] = 0.0
-    
-#     # Byte value distribution peaks
-#     try:
-#         unique_bytes = len(np.unique(byte_array))
-#         features['byte_uniqueness_ratio'] = unique_bytes / len(byte_array)
-#     except:
-#         features['byte_uniqueness_ratio'] = 0.0
-    
-#     return features
-
 
 def byte_statistical_features(hash_bytes):
     """Enhanced statistical analysis of byte values with robust error handling"""
@@ -632,59 +512,6 @@ def bit_distribution_features(hash_bytes):
         features[f'bit_pos_{i}'] = int(bit_array[i]) if i < total_bits else 0
     
     return features
-
-# def cryptographic_property_features(hash_bytes, hash_string):
-#     """Enhanced cryptographic property tests and measurements"""
-#     features = {}
-    
-#     # Compression test (random data shouldn't compress well)
-#     try:
-#         compressed_size = len(zlib.compress(hash_bytes))
-#         features['compressibility'] = compressed_size / max(1, len(hash_bytes))
-#         features['compression_ratio'] = compressed_size / len(hash_bytes)
-#     except:
-#         features['compressibility'] = 1.0
-#         features['compression_ratio'] = 1.0
-    
-#     # Autocorrelation at different lags
-#     byte_array = np.frombuffer(hash_bytes, dtype=np.uint8)
-#     if len(byte_array) > 1:
-#         try:
-#             # Autocorrelation at multiple lags
-#             for lag in [1, 2, 4, 8]:
-#                 if len(byte_array) > lag:
-#                     lag_corr = np.corrcoef(byte_array[:-lag], byte_array[lag:])[0,1]
-#                     features[f'autocorrelation_lag{lag}'] = float(0.0 if np.isnan(lag_corr) else lag_corr)
-#                 else:
-#                     features[f'autocorrelation_lag{lag}'] = 0.0
-#         except:
-#             for lag in [1, 2, 4, 8]:
-#                 features[f'autocorrelation_lag{lag}'] = 0.0
-#     else:
-#         for lag in [1, 2, 4, 8]:
-#             features[f'autocorrelation_lag{lag}'] = 0.0
-    
-#     # Block-based analysis for common hash sizes
-#     block_sizes = [4, 8, 16, 32, 64]
-#     for block_size in block_sizes:
-#         if len(hash_bytes) >= block_size:
-#             block = hash_bytes[:block_size]
-#             block_array = np.frombuffer(block, dtype=np.uint8)
-#             features[f'block_{block_size}_mean'] = float(np.mean(block_array))
-#             features[f'block_{block_size}_std'] = float(np.std(block_array))
-#             features[f'block_{block_size}_entropy'] = calculate_byte_entropy(block)
-    
-#     # Entropy of byte distribution
-#     if len(hash_bytes) > 0:
-#         byte_entropy = calculate_byte_entropy(hash_bytes)
-#         features['byte_entropy'] = byte_entropy
-#         features['byte_entropy_ratio'] = byte_entropy / 8.0  # Normalized to max entropy
-    
-#     # Avalanche effect simulation (bit flip analysis)
-#     if len(hash_bytes) > 1:
-#         features.update(avalanche_analysis(hash_bytes))
-    
-#     return features
 
 def cryptographic_property_features(hash_bytes, hash_string):
     """Enhanced cryptographic property tests with robust error handling"""
@@ -1038,14 +865,14 @@ def get_feature_names():
         'bit_transition_ratio', 'bit_transition_count', 'monobit_test'
     ]
     
-    # Add positional bit features
+    # positional bit features
     bit_features.extend([f'bit_pos_{i}' for i in range(32)])
     
     crypto_features = [
         'compressibility', 'compression_ratio', 'byte_entropy', 'byte_entropy_ratio'
     ]
     
-    # Add autocorrelation features
+    # autocorrelation features
     crypto_features.extend([f'autocorrelation_lag{lag}' for lag in [1, 2, 4, 8]])
     
     # Add block analysis features
@@ -1053,7 +880,7 @@ def get_feature_names():
     for size in block_sizes:
         crypto_features.extend([f'block_{size}_mean', f'block_{size}_std', f'block_{size}_entropy'])
     
-    # Add avalanche features
+    # avalanche features
     crypto_features.extend(['avalanche_mean', 'avalanche_std', 'avalanche_min', 'avalanche_max'])
     
     encoding_features = [
