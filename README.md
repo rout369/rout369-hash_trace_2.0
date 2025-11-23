@@ -1,6 +1,6 @@
 # HASHTRACE 🔍 — Advanced Hash Identifier (AI-Powered)
 
-## 🚀 Modern | AI-Enhanced | MCF-Aware | 150+ Features | CLI + Dataset Generator
+## 🚀 Modern | AI-Enhanced | MCF-Aware | 100+ Features | CLI + Dataset Generator
 
 HashTrace is a next-generation hash identification system that uses:
 
@@ -31,11 +31,11 @@ Extracts 100+ features from hash strings:
 - Cryptographic randomness tests  
 - MCF parsing (Argon2, bcrypt, scrypt, SHA512-crypt, etc.)  
 - Algorithm-specific fingerprinting  
-
+- And others
+  
 ### 🤖 2. AI-Powered Hash Prediction
 Automatically trains and selects the best ML model:
-- RandomForest  
-- Neural Network  
+- RandomForest   
 - Logistic Regression  
 - Decision Tree  
 
@@ -45,21 +45,8 @@ Evaluates:
 - Cross-validation  
 - Training time  
 
-### 🧪 3. Dataset Generator
-`dataset_gen_2.py` creates balanced datasets for many algorithm families:
-- SHA  
-- BLAKE2 / BLAKE3  
-- MD2 / MD4 / MD5  
-- RIPEMD  
-- NTLM / LM  
-- CRC32 / Adler32  
-- MySQL / Oracle  
-- Cisco hashes  
-- Blockchain SHA256  
-- PBKDF2  
-- MCF hashes  
 
-### 🎨 4. CLI Interface
+### 🎨 3. CLI Interface
 Includes:
 - Neon gradient logo  
 - Animated progress bars  
@@ -68,43 +55,14 @@ Includes:
 
 ---
 
-## 📂 Project Structure
-```
-HashTrace/
-│
-├── hash_features.py
-├── hashtrace_ml.py
-├── train_model.py
-├── dataset_gen_2.py
-└── Models/
-```
-
----
-
 ## 🛠 Installation
 ```
 pip install -r requirements.txt
 ```
-
----
-
-## 📊 Generate Dataset
-```
-python dataset_gen_2.py
-```
-
----
-
-## 🤖 Train ML Model
-```
-python train_model.py --data dataset.csv
-```
-
----
-
 ## 🔍 Run HashTrace CLI
 ```
-python hashtrace_ml.py --hash "$argon2id$v=19$m=65536,t=3,p=4$SALT$HASH"
+python hashtrace_ml.py --help
+python hashtrace_ml.py --file <File name / path>
 ```
 
 ---
@@ -140,18 +98,5 @@ AI Prediction:
 
 ---
 
-## 🛠 ML Error Fixing
-Automatically handles:
-```
-KeyError: 'dollar_sections'
-```
-
----
-
 ## 📜 License
 MIT License
-
----
-
-## ❤️ Credits
-Made with ❤️ by YOU, enhanced with AI.
