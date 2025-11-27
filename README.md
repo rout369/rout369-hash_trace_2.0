@@ -101,3 +101,12 @@ AI Prediction:
 
 ## 📜 License
 MIT License
+
+
+<div align="center">
+
+**⭐ If you find HashTrace 2.0 useful, please give it a star on GitHub! ⭐**
+
+*"Identifying the unknown"* 🔍
+
+</div>
